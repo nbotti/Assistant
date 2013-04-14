@@ -4,18 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
+using System.Speech.Synthesis;
 
 namespace Assistant
 {
     class Speech
     {
         private SpeechRecognitionEngine sr;
+        private SpeechSynthesizer ss;
         private string temp;
 
         public Speech()
         {
             sr = new SpeechRecognitionEngine();
+            ss = new SpeechSynthesizer();
             sr.SetInputToDefaultAudioDevice();
+            ss.SelectVoice("Microsoft Anna");
+            ss.SetOutputToDefaultAudioDevice();
         }
 
         /// <summary>
@@ -55,6 +60,11 @@ namespace Assistant
             sr.Recognize();
 
             return temp;
+        }
+
+        public void talk(string text)
+        {
+            ss.Speak(text);
         }
 
         void rec_SpeechRecognized(object sender, RecognitionEventArgs e)

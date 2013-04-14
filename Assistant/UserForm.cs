@@ -35,5 +35,10 @@ namespace Assistant
             MessageBox.Show(wolf.simpleQuery("Who is Donald Duck?"));
             button2.Text = oldtext;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            speech.talk("You wanted me to say something, eh? Well, now I'm saying it.");
+        }
     }
 }
