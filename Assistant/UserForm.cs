@@ -32,7 +32,7 @@ namespace Assistant
         {
             string oldtext = button2.Text;
             button2.Text = "Working...";
-            MessageBox.Show(wolf.simpleQuery("Who is Donald Duck?"));
+            MessageBox.Show(wolf.simpleQuery("Who is Donald Duck?")[1]);
             button2.Text = oldtext;
         }
 

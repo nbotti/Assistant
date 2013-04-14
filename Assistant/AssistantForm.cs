@@ -24,14 +24,34 @@ namespace Assistant
 
         private void ask_Click(object sender, EventArgs e)
         {
-            string old = ask.Text;
+            ask.Text = "Speak now!";
             string query = speech.recognizeDictation();
             ask.Text = "Querying Wolfram|Alpha...";
-            string result = wolfram.simpleQuery(query);
-            results.Text = result;
+            try
+            {
+                string[] result = wolfram.simpleQuery(query);
+                returnResults(result);
+            }
+            catch (AmbiguousQueryException aqe)
+            {
+                speech.talk(aqe.Message);
+                speech.talk("Please restate your query, optionally using one of the following interpretations.");
+                int count = 1;
+                foreach (var dym in aqe.DidYouMeans)
+                {
+                    speech.talk(count + ": " + dym.Value);
+                }
+                ask_Click(null, null);
+            }
+            
+        }
+
+        private void returnResults(string[] result)
+        {
+            results.Text = result[1];
             ask.Text = "Reading...";
-            speech.talk(result);
-            ask.Text = old;
+            speech.talk(result[0]);
+            ask.Text = "Ask Wolfram Something";
         }
     }
 }
