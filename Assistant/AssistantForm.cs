@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Speech.Recognition;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Speech.Recognition;
 
 namespace Assistant
 {
@@ -52,6 +54,18 @@ namespace Assistant
             ask.Text = "Reading...";
             speech.talk(result[0]);
             ask.Text = "Ask Wolfram Something";
+        }
+
+        private void listenforanna_Click(object sender, EventArgs e)
+        {
+            speech.listenForWord("Anna");
+            speech.talk("I'm listening Nick");
+            ask_Click(null, null);
+            listenforanna_Click(null, null);
+        }
+
+        private void AssistantForm_Load(object sender, EventArgs e) {
+
         }
     }
 }

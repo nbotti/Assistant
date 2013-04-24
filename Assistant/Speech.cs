@@ -40,6 +40,7 @@ namespace Assistant
 
             // Create the Grammar instance and load it into the speech recognition engine.
             Grammar g = new Grammar(gb);
+            sr.UnloadAllGrammars();
             sr.LoadGrammar(g);
 
             // Register a handler for the SpeechRecognized event.
@@ -53,6 +54,7 @@ namespace Assistant
         {
             // Use the dictationgrammer, which allows free text
             Grammar g = new DictationGrammar();
+            sr.UnloadAllGrammars();
             sr.LoadGrammar(g);
 
             // Register a handler for the SpeechRecognized event.
@@ -60,6 +62,23 @@ namespace Assistant
             sr.Recognize();
 
             return temp;
+        }
+
+        public void listenForWord(string word)
+        {
+            // Create a simple grammar
+            Choices colors = new Choices();
+            colors.Add(word);
+
+            // Create a GrammarBuilder object and append the Choices object.
+            GrammarBuilder gb = new GrammarBuilder();
+            gb.Append(colors);
+
+            // Create the Grammar instance and load it into the speech recognition engine.
+            Grammar g = new Grammar(gb);
+            sr.UnloadAllGrammars();
+            sr.LoadGrammar(g);
+            sr.Recognize();
         }
 
         public void talk(string text)
