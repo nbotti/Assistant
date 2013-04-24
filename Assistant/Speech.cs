@@ -69,6 +69,7 @@ namespace Assistant
             // Create a simple grammar
             Choices colors = new Choices();
             colors.Add(word);
+            colors.Add("That's all for now.");
 
             // Create a GrammarBuilder object and append the Choices object.
             GrammarBuilder gb = new GrammarBuilder();
@@ -78,12 +79,20 @@ namespace Assistant
             Grammar g = new Grammar(gb);
             sr.UnloadAllGrammars();
             sr.LoadGrammar(g);
+
+            sr.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(rec_ListenFor);
             sr.Recognize();
         }
 
         public void talk(string text)
         {
             ss.Speak(text);
+        }
+
+        void rec_ListenFor(object sender, RecognitionEventArgs e)
+        {
+            if (e.Result.Text == "That's all for now.")
+                System.Environment.Exit(0);
         }
 
         void rec_SpeechRecognized(object sender, RecognitionEventArgs e)
