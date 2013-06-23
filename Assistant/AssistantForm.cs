@@ -8,7 +8,6 @@ using System.Speech.Recognition;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Speech.Recognition;
 
 namespace Assistant
 {
@@ -29,6 +28,7 @@ namespace Assistant
             ask.Text = "Speak now!";
             string query = speech.recognizeDictation();
             ask.Text = "Querying Wolfram|Alpha...";
+            speech.talk("One moment.");
             try
             {
                 string[] result = wolfram.simpleQuery(query);
@@ -52,7 +52,7 @@ namespace Assistant
         {
             results.Text = result[1];
             ask.Text = "Reading...";
-            speech.talk(result[0]);
+            speech.talk(result[0].Replace("|", "-"));
             ask.Text = "Ask Wolfram Something";
         }
 
