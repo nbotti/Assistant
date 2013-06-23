@@ -14,6 +14,8 @@ namespace Assistant
         private SpeechSynthesizer ss;
         private string temp;
 
+        public string name = "Nick";
+
         public Speech()
         {
             sr = new SpeechRecognitionEngine();

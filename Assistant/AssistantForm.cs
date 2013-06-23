@@ -25,15 +25,18 @@ namespace Assistant
         private void listenforanna_Click(object sender, EventArgs e)
         {
             speech.listenForWord("Anna");
-            speech.talk("I'm listening Nick");
+            speech.talk("I'm listening " + speech.name);
 
-            string[] commands = { "Ask", "That's all for now" };
+            string[] commands = { "Ask", "Web", "That's all for now" };
             string cmd = speech.recognizeOneWordFromGrammer(commands);
 
             switch (cmd)
             {
                 case "Ask":
                     new Plugins.WolframAlpha.WA_process().processQuery(ref results, ref speech);
+                    break;
+                case "Web":
+                    new Plugins.OpenAWebsite.OAW_process().processQuery(ref results, ref speech);
                     break;
                 case "That's all for now":
                     speech.talk("Goodbye.");
